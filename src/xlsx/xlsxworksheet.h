@@ -25,15 +25,17 @@
 #ifndef XLSXWORKSHEET_H
 #define XLSXWORKSHEET_H
 
-#include "xlsxabstractsheet.h"
-#include "xlsxcell.h"
-#include "xlsxcellrange.h"
-#include "xlsxcellreference.h"
+#include "QtXlsx/xlsxabstractsheet.h"
+#include "QtXlsx/xlsxcell.h"
+#include "QtXlsx/xlsxcellrange.h"
+#include "QtXlsx/xlsxcellreference.h"
+
 #include <QStringList>
 #include <QMap>
 #include <QVariant>
 #include <QPointF>
 #include <QSharedPointer>
+
 class QIODevice;
 class QDateTime;
 class QUrl;

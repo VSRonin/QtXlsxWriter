@@ -25,9 +25,10 @@
 #ifndef QXLSX_XLSXCONDITIONALFORMATTING_H
 #define QXLSX_XLSXCONDITIONALFORMATTING_H
 
-#include "xlsxglobal.h"
-#include "xlsxcellrange.h"
-#include "xlsxcellreference.h"
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxcellrange.h"
+#include "QtXlsx/xlsxcellreference.h"
+
 #include <QSharedDataPointer>
 #include <QString>
 #include <QList>

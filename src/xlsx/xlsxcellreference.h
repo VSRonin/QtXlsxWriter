@@ -24,7 +24,8 @@
 ****************************************************************************/
 #ifndef QXLSX_XLSXCELLREFERENCE_H
 #define QXLSX_XLSXCELLREFERENCE_H
-#include "xlsxglobal.h"
+
+#include "QtXlsx/xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 
