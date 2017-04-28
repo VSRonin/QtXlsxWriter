@@ -70,6 +70,10 @@ public:
 
 //    void addChart();
     bool defineName(const QString &name, const QString &formula, const QString &comment=QString(), const QString &scope=QString());
+    bool definedName(const QString &name, QString &formula, QString &comment, const QString &scope = QString());
+    bool definedName(int index, QString &name, QString &formula, QString &comment, const QString &scope = QString());
+    bool definedNameGlobal(int index, QString &name, QString &formula, QString &comment, QString &scope);
+    int  definedNameCount(const QString &scope = QString());
     bool isDate1904() const;
     void setDate1904(bool date1904);
     bool isStringsToNumbersEnabled() const;

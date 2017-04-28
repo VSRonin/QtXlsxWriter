@@ -85,7 +85,8 @@ CellRange::CellRange(const char *range)
 
 void CellRange::init(const QString &range)
 {
-    QStringList rs = range.split(QLatin1Char(':'));
+    QStringList rs = range.split(QLatin1Char('!'));
+    rs = rs[rs.size()-1].split(QLatin1Char(':'));
     if (rs.size() == 2) {
         CellReference start(rs[0]);
         CellReference end(rs[1]);

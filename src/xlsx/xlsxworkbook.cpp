@@ -186,6 +186,100 @@ bool Workbook::defineName(const QString &name, const QString &formula, const QSt
     return true;
 }
 
+bool Workbook::definedName(const QString &name, QString &formula, QString &comment, const QString &scope)
+{
+    Q_D(Workbook);
+
+    int id = -1;
+    if (!scope.isEmpty()) {
+        for (int i = 0; i < d->sheets.size(); ++i) {
+            if (d->sheets[i]->sheetName() == scope) {
+                id = d->sheets[i]->sheetId();
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i < d->definedNamesList.size(); ++i) {
+        if (d->definedNamesList[i].sheetId == id && d->definedNamesList[i].name == name) {
+            formula = d->definedNamesList[i].formula;
+            comment = d->definedNamesList[i].comment;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Workbook::definedName(int index, QString &name, QString &formula, QString &comment, const QString &scope)
+{
+    Q_D(Workbook);
+
+    int id = -1;
+    if (!scope.isEmpty()) {
+        for (int i = 0; i < d->sheets.size(); ++i) {
+            if (d->sheets[i]->sheetName() == scope) {
+                id = d->sheets[i]->sheetId();
+                break;
+            }
+        }
+    }
+
+    int pos = -1;
+    for (int i = 0; i < d->definedNamesList.size(); ++i) {
+        if (d->definedNamesList[i].sheetId == id) {
+            ++pos;
+        }
+        if (d->definedNamesList[i].sheetId == id && pos == index) {
+            name = d->definedNamesList[i].name;
+            formula = d->definedNamesList[i].formula;
+            comment = d->definedNamesList[i].comment;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Workbook::definedNameGlobal(int index, QString &name, QString &formula, QString &comment, QString &scope)
+{
+    Q_D(Workbook);
+
+    if (index < d->definedNamesList.count()) {
+        name = d->definedNamesList[index].name;
+        formula = d->definedNamesList[index].formula;
+        comment = d->definedNamesList[index].comment;
+        for (int i = 0; i < d->sheets.size(); ++i) {
+            if (d->sheets[i]->sheetId() == d->definedNamesList[index].sheetId) {
+                scope = d->sheets[i]->sheetName();
+                break;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+int Workbook::definedNameCount(const QString &scope)
+{
+    Q_D(Workbook);
+
+    int count = 0;
+    int id = -1;
+    if (!scope.isEmpty()) {
+        for (int i = 0; i < d->sheets.size(); ++i) {
+            if (d->sheets[i]->sheetName() == scope) {
+                id = d->sheets[i]->sheetId();
+                break;
+            }
+        }
+    }
+    for (int i = 0; i < d->definedNamesList.size(); ++i) {
+        if (d->definedNamesList[i].sheetId == id) {
+            ++count;
+        }
+    }
+    return count;
+}
+
 AbstractSheet *Workbook::addSheet(const QString &name, AbstractSheet::SheetType type)
 {
     Q_D(Workbook);
