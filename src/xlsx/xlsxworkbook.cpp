@@ -186,6 +186,27 @@ bool Workbook::defineName(const QString &name, const QString &formula, const QSt
     return true;
 }
 
+QString Workbook::getFormulaByDefineName(const QString &definedName, const QString &scope)
+{
+	Q_D(Workbook);
+
+	int id=-1;
+	if (!scope.isEmpty()) {
+		for (int i=0; i<d->sheets.size(); ++i) {
+			if (d->sheets[i]->sheetName() == scope) {
+				id = d->sheets[i]->sheetId();
+				break;
+			}
+		}
+	}
+
+	foreach (XlsxDefineNameData definedNameData, d->definedNamesList) {
+		if (definedNameData.name == definedName and definedNameData.sheetId == id)
+			return definedNameData.formula;
+	}
+	return "";
+}
+
 AbstractSheet *Workbook::addSheet(const QString &name, AbstractSheet::SheetType type)
 {
     Q_D(Workbook);
