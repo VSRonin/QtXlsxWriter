@@ -815,6 +815,13 @@ bool Document::defineName(const QString &name, const QString &formula, const QSt
     return d->workbook->defineName(name, formula, comment, scope);
 }
 
+QString Document::getFormulaByDefineName(const QString &definedName) const
+{
+    Q_D(const Document);
+
+    return d->workbook->getFormulaByDefineName(definedName);
+}
+
 /*!
     Return the range that contains cell data.
  */
