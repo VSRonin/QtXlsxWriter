@@ -235,7 +235,7 @@ Worksheet::~Worksheet()
 }
 
 /*!
- * Returns whether sheet is protected.
+ * Returns whether the sheet window is protected.
  */
 bool Worksheet::isWindowProtected() const
 {
@@ -244,12 +244,30 @@ bool Worksheet::isWindowProtected() const
 }
 
 /*!
- * Protects/unprotects the sheet based on \a protect.
+ * Protects/unprotects the sheet window based on \a protect.
  */
 void Worksheet::setWindowProtected(bool protect)
 {
     Q_D(Worksheet);
     d->windowProtection = protect;
+}
+
+/*!
+ * Returns whether the sheet data is protected.
+ */
+bool Worksheet::isSheetProtected() const
+{
+    Q_D(const Worksheet);
+    return d->sheetProtection;
+}
+
+/*!
+ * Protects/unprotects the sheet data based on \a protect.
+ */
+void Worksheet::setSheetProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->sheetProtection = protect;
 }
 
 /*!
@@ -1229,6 +1247,13 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     if (d->dimension.isValid())
         d->saveXmlSheetData(writer);
     writer.writeEndElement();//sheetData
+
+    if (d->sheetProtection) {
+        writer.writeStartElement(QStringLiteral("sheetProtection"));
+        writer.writeAttribute(QStringLiteral("sheet"), QStringLiteral("1"));
+        writer.writeAttribute(QStringLiteral("selectLockedCells"), QStringLiteral("1"));
+        writer.writeEndElement();//sheetProtection
+    }
 
     d->saveXmlMergeCells(writer);
     foreach (const ConditionalFormatting cf, d->conditionalFormattingList)

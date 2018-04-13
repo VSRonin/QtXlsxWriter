@@ -648,6 +648,13 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
                 writer.writeAttribute(QStringLiteral("textRotation"), QString::number(format.rotation()));
         }
 
+        if (format.hasProtectionData()) {
+            writer.writeStartElement(QStringLiteral("protection"));
+            writer.writeAttribute(QStringLiteral("locked"), format.locked() ? QStringLiteral("1") : QStringLiteral("0"));
+            writer.writeAttribute(QStringLiteral("hidden"), format.hidden() ? QStringLiteral("1") : QStringLiteral("0"));
+            writer.writeEndElement();//protection
+        }
+
         writer.writeEndElement();//xf
     }
     writer.writeEndElement();//cellXfs

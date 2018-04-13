@@ -214,6 +214,7 @@ public:
     XlsxSheetFormatProps sheetFormatProps;
 
     bool windowProtection;
+    bool sheetProtection;
     bool showFormulas;
     bool showGridLines;
     bool showRowColHeaders;
