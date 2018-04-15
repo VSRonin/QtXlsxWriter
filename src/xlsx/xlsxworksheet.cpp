@@ -61,9 +61,36 @@ QT_BEGIN_NAMESPACE_XLSX
 
 WorksheetPrivate::WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag)
     : AbstractSheetPrivate(p, flag)
-  , windowProtection(false), showFormulas(false), showGridLines(true), showRowColHeaders(true)
-  , showZeros(true), rightToLeft(false), tabSelected(false), showRuler(false)
-  , showOutlineSymbols(true), showWhiteSpace(true), urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
+    // window protection related props
+    , windowProtection(false)
+    , showFormulas(false)
+    , showGridLines(true)
+    , showRowColHeaders(true)
+    , showZeros(true)
+    , rightToLeft(false)
+    , tabSelected(false)
+    , showRuler(false)
+    , showOutlineSymbols(true)
+    , showWhiteSpace(true)
+    // sheet protection related props
+    , sheetProtection(false)
+    , objectsProtection(false)
+    , scenariosProtection(false)
+    , formatCellsProtection(true)
+    , formatColumnsProtection(true)
+    , formatRowsProtection(true)
+    , insertColumnsProtection(true)
+    , insertRowsProtection(true)
+    , insertHyperlinksProtection(true)
+    , deleteColumnsProtection(true)
+    , deleteRowsProtection(true)
+    , selectLockedCellsProtection(false)
+    , selectUnlockedCellsProtection(false)
+    , sortProtection(true)
+    , autoFilterProtection(true)
+    , pivotTablesProtection(true)
+    // other props
+    , urlPattern(QStringLiteral("^([fh]tt?ps?://)|(mailto:)|(file://)"))
 {
     previous_row = 0;
 
@@ -253,24 +280,6 @@ void Worksheet::setWindowProtected(bool protect)
 }
 
 /*!
- * Returns whether the sheet data is protected.
- */
-bool Worksheet::isSheetProtected() const
-{
-    Q_D(const Worksheet);
-    return d->sheetProtection;
-}
-
-/*!
- * Protects/unprotects the sheet data based on \a protect.
- */
-void Worksheet::setSheetProtected(bool protect)
-{
-    Q_D(Worksheet);
-    d->sheetProtection = protect;
-}
-
-/*!
  * Return whether formulas instead of their calculated results shown in cells
  */
 bool Worksheet::isFormulasVisible() const
@@ -433,6 +442,294 @@ void Worksheet::setWhiteSpaceVisible(bool visible)
 {
     Q_D(Worksheet);
     d->showWhiteSpace = visible;
+}
+
+/*!
+ * Returns whether the sheet data is protected.
+ */
+bool Worksheet::isSheetProtected() const
+{
+    Q_D(const Worksheet);
+    return d->sheetProtection;
+}
+
+/*!
+ * Protects/unprotects the sheet data based on \a protect.
+ */
+void Worksheet::setSheetProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->sheetProtection = protect;
+}
+
+/*!
+ * Returns whether the objects are protected when the sheet is protected
+ */
+bool Worksheet::isObjectsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->objectsProtection;
+}
+
+/*!
+ * Protects/unprotects the objects based on \a protect.
+ */
+void Worksheet::setObjectsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->objectsProtection = protect;
+}
+
+/*!
+ * Returns whether the scenarios are protected when the sheet is protected
+ */
+bool Worksheet::isScenariosProtected() const
+{
+    Q_D(const Worksheet);
+    return d->scenariosProtection;
+}
+
+/*!
+ * Protects/unprotects the scenarios based on \a protect.
+ */
+void Worksheet::setScenariosProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->scenariosProtection = protect;
+}
+
+/*!
+ * Returns whether the cell format is protected when the sheet is protected
+ */
+bool Worksheet::isFormatCellsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->formatCellsProtection;
+}
+
+/*!
+ * Protects/unprotects cell formatting based on \a protect.
+ */
+void Worksheet::setFormatCellsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->formatCellsProtection = protect;
+}
+
+/*!
+ * Returns whether the column format is protected when the sheet is protected
+ */
+bool Worksheet::isFormatColumnsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->formatColumnsProtection;
+}
+
+/*!
+ * Protects/unprotects column formatting based on \a protect.
+ */
+void Worksheet::setFormatColumnsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->formatColumnsProtection = protect;
+}
+
+/*!
+ * Returns whether the row format is protected when the sheet is protected
+ */
+bool Worksheet::isFormatRowsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->formatRowsProtection;
+}
+
+/*!
+ * Protects/unprotects rows formatting based on \a protect.
+ */
+void Worksheet::setFormatRowsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->formatRowsProtection = protect;
+}
+
+/*!
+ * Returns whether columns can be inserted when the sheet is protected
+ */
+bool Worksheet::isInsertColumnsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->insertColumnsProtection;
+}
+
+/*!
+ * Protects/unprotects column insertion based on \a protect.
+ */
+void Worksheet::setInsertColumnsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->insertColumnsProtection = protect;
+}
+
+/*!
+ * Returns whether rows can be inserted when the sheet is protected
+ */
+bool Worksheet::isInsertRowsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->insertRowsProtection;
+}
+
+/*!
+ * Protects/unprotects rows insertion based on \a protect.
+ */
+void Worksheet::setInsertRowsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->insertRowsProtection = protect;
+}
+
+/*!
+ * Returns whether hyperlinks can be inserted when the sheet is protected
+ */
+bool Worksheet::isInsertHyperlinksProtected() const
+{
+    Q_D(const Worksheet);
+    return d->insertHyperlinksProtection;
+}
+
+/*!
+ * Protects/unprotects hyperlink insertion based on \a protect.
+ */
+void Worksheet::setInsertHyperlinksProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->insertHyperlinksProtection = protect;
+}
+
+/*!
+ * Returns whether columns can be deleted when the sheet is protected
+ */
+bool Worksheet::isDeleteColumnsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->deleteColumnsProtection;
+}
+
+/*!
+ * Protects/unprotects column deletion based on \a protect.
+ */
+void Worksheet::setDeleteColumnsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->deleteColumnsProtection = protect;
+}
+
+/*!
+ * Returns whether rows can be deleted when the sheet is protected
+ */
+bool Worksheet::isDeleteRowsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->deleteRowsProtection;
+}
+
+/*!
+ * Protects/unprotects row deletion based on \a protect.
+ */
+void Worksheet::setDeleteRowsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->deleteRowsProtection = protect;
+}
+
+/*!
+ * Returns whether locked cells can be selected when the sheet is protected
+ */
+bool Worksheet::isSelectLockedCellsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->selectLockedCellsProtection;
+}
+
+/*!
+ * Protects/unprotects the selection of locked cells based on \a protect.
+ */
+void Worksheet::setSelectLockedCellsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->selectLockedCellsProtection = protect;
+}
+
+/*!
+ * Returns whether unlocked cells can be selected when the sheet is protected
+ */
+bool Worksheet::isSelectUnlockedCellsProtected() const
+{
+    Q_D(const Worksheet);
+    return d->selectUnlockedCellsProtection;
+}
+
+/*!
+ * Protects/unprotects the selection of unlocked based on \a protect.
+ */
+void Worksheet::setSelectUnlockedCellsProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->selectUnlockedCellsProtection = protect;
+}
+
+/*!
+ * Returns whether sorting is allowed when the sheet is protected
+ */
+bool Worksheet::isSortProtected() const
+{
+    Q_D(const Worksheet);
+    return d->sortProtection;
+}
+
+/*!
+ * Protects/unprotects sorting based on \a protect.
+ */
+void Worksheet::setSortProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->sortProtection = protect;
+}
+
+/*!
+ * Returns whether auto filters can operate when the sheet is protected
+ */
+bool Worksheet::isAutoFilterProtected() const
+{
+    Q_D(const Worksheet);
+    return d->autoFilterProtection;
+}
+
+/*!
+ * Protects/unprotects auto filtering based on \a protect.
+ */
+void Worksheet::setAutoFilterProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->autoFilterProtection = protect;
+}
+
+/*!
+ * Returns whether pivot tables can operate when the sheet is protected
+ */
+bool Worksheet::isPivotTablesProtected() const
+{
+    Q_D(const Worksheet);
+    return d->pivotTablesProtection;
+}
+
+/*!
+ * Protects/unprotects table pivot based on \a protect.
+ */
+void Worksheet::setPivotTablesProtected(bool protect)
+{
+    Q_D(Worksheet);
+    d->pivotTablesProtection = protect;
 }
 
 /*!

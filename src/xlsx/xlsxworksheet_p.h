@@ -214,7 +214,6 @@ public:
     XlsxSheetFormatProps sheetFormatProps;
 
     bool windowProtection;
-    bool sheetProtection;
     bool showFormulas;
     bool showGridLines;
     bool showRowColHeaders;
@@ -224,6 +223,25 @@ public:
     bool showRuler;
     bool showOutlineSymbols;
     bool showWhiteSpace;
+
+    // see ECMA-376-1:2016 section 18.3.1.85
+    bool sheetProtection;
+    bool objectsProtection;
+    bool scenariosProtection;
+    bool formatCellsProtection;
+    bool formatColumnsProtection;
+    bool formatRowsProtection;
+    bool insertColumnsProtection;
+    bool insertRowsProtection;
+    bool insertHyperlinksProtection;
+    bool deleteColumnsProtection;
+    bool deleteRowsProtection;
+    bool selectLockedCellsProtection;
+    bool selectUnlockedCellsProtection;
+    bool sortProtection;
+    bool autoFilterProtection;
+    bool pivotTablesProtection;
+
 
     QRegularExpression urlPattern;
 private:

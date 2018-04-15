@@ -121,8 +121,6 @@ public:
 
     bool isWindowProtected() const;
     void setWindowProtected(bool protect);
-    bool isSheetProtected() const;
-    void setSheetProtected(bool protect);
     bool isFormulasVisible() const;
     void setFormulasVisible(bool visible);
     bool isGridLinesVisible() const;
@@ -141,6 +139,39 @@ public:
     void setOutlineSymbolsVisible(bool visible);
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
+
+    bool isSheetProtected() const;
+    void setSheetProtected(bool protect);
+    bool isObjectsProtected() const;
+    void setObjectsProtected(bool protect);
+    bool isScenariosProtected() const;
+    void setScenariosProtected(bool protect);
+    bool isFormatCellsProtected() const;
+    void setFormatCellsProtected(bool protect);
+    bool isFormatColumnsProtected() const;
+    void setFormatColumnsProtected(bool protect);
+    bool isFormatRowsProtected() const;
+    void setFormatRowsProtected(bool protect);
+    bool isInsertColumnsProtected() const;
+    void setInsertColumnsProtected(bool protect);
+    bool isInsertRowsProtected() const;
+    void setInsertRowsProtected(bool protect);
+    bool isInsertHyperlinksProtected() const;
+    void setInsertHyperlinksProtected(bool protect);
+    bool isDeleteColumnsProtected() const;
+    void setDeleteColumnsProtected(bool protect);
+    bool isDeleteRowsProtected() const;
+    void setDeleteRowsProtected(bool protect);
+    bool isSelectLockedCellsProtected() const;
+    void setSelectLockedCellsProtected(bool protect);
+    bool isSelectUnlockedCellsProtected() const;
+    void setSelectUnlockedCellsProtected(bool protect);
+    bool isSortProtected() const;
+    void setSortProtected(bool protect);
+    bool isAutoFilterProtected() const;
+    void setAutoFilterProtected(bool protect);
+    bool isPivotTablesProtected() const;
+    void setPivotTablesProtected(bool protect);
 
     ~Worksheet();
 
