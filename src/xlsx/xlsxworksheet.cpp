@@ -1547,8 +1547,24 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
 
     if (d->sheetProtection) {
         writer.writeStartElement(QStringLiteral("sheetProtection"));
+
         writer.writeAttribute(QStringLiteral("sheet"), QStringLiteral("1"));
-        writer.writeAttribute(QStringLiteral("selectLockedCells"), QStringLiteral("1"));
+        writer.writeAttribute(QStringLiteral("objects"), d->objectsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("scenarios"), d->scenariosProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("formatCells"), d->formatCellsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("formatColumns"), d->formatColumnsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("formatRows"), d->formatRowsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("insertColumns"), d->insertColumnsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("insertRows"), d->insertRowsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("insertHyperlinks"), d->insertHyperlinksProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("deleteColumns"), d->deleteColumnsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("deleteRows"), d->deleteRowsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("selectLockedCells"), d->selectLockedCellsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("selectUnlockedCells"), d->selectUnlockedCellsProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("sort"), d->sortProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("autoFilter"), d->autoFilterProtection ? QStringLiteral("1") : QStringLiteral("0"));
+        writer.writeAttribute(QStringLiteral("pivotTables"), d->pivotTablesProtection ? QStringLiteral("1") : QStringLiteral("0"));
+
         writer.writeEndElement();//sheetProtection
     }
 
