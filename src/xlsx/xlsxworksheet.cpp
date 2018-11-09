@@ -1158,7 +1158,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     {
         writer.writeStartElement(QStringLiteral("sheetPr"));
         writer.writeStartElement(QStringLiteral("pageSetUpPr"));
-        writer.writeAttribute(QStringLiteral("fitToPage"), QString::number(d->pageSetup.fitToHeight));
+        writer.writeAttribute(QStringLiteral("fitToPage"), QString::number(d->pageSetup.fitToWidth));
         writer.writeEndElement();//pageSetUpPr
         writer.writeEndElement();//sheetPr
     }
