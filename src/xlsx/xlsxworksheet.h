@@ -34,6 +34,9 @@
 #include <QVariant>
 #include <QPointF>
 #include <QSharedPointer>
+#include <QPageSize>
+#include <QPageLayout>
+
 class QIODevice;
 class QDateTime;
 class QUrl;
@@ -118,6 +121,14 @@ public:
     bool groupColumns(int colFirst, int colLast, bool collapsed = true);
     bool groupColumns(const CellRange &range, bool collapsed = true);
     CellRange dimension() const;
+
+    bool setPageSetup(double percent,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
+    bool setPageSetup(int fitToWidth,
+                      int fitToHeight,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
 
     bool isWindowProtected() const;
     void setWindowProtected(bool protect);

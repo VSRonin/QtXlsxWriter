@@ -602,7 +602,7 @@ bool Document::setColumnHidden(int colFirst, int colLast, bool hidden)
 double Document::columnWidth(int column)
 {
     if (Worksheet *sheet = currentWorksheet())
-      return sheet->columnWidth(column);
+        return sheet->columnWidth(column);
     return 0.0;
 }
 
@@ -612,7 +612,7 @@ double Document::columnWidth(int column)
 Format Document::columnFormat(int column)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->columnFormat(column);
+        return sheet->columnFormat(column);
     return Format();
 }
 
@@ -622,7 +622,7 @@ Format Document::columnFormat(int column)
 bool Document::isColumnHidden(int column)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->isColumnHidden(column);
+        return sheet->isColumnHidden(column);
     return false;
 }
 
@@ -646,7 +646,7 @@ bool Document::setRowFormat(int row, const Format &format)
 bool Document::setRowFormat(int rowFirst, int rowLast, const Format &format)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->setRowFormat(rowFirst, rowLast, format);
+        return sheet->setRowFormat(rowFirst, rowLast, format);
     return false;
 }
 
@@ -670,7 +670,7 @@ bool Document::setRowHidden(int row, bool hidden)
 bool Document::setRowHidden(int rowFirst, int rowLast, bool hidden)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->setRowHidden(rowFirst, rowLast, hidden);
+        return sheet->setRowHidden(rowFirst, rowLast, hidden);
     return false;
 }
 
@@ -696,7 +696,7 @@ bool Document::setRowHeight(int row, double height)
 bool Document::setRowHeight(int rowFirst, int rowLast, double height)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->setRowHeight(rowFirst, rowLast, height);
+        return sheet->setRowHeight(rowFirst, rowLast, height);
     return false;
 }
 
@@ -705,8 +705,8 @@ bool Document::setRowHeight(int rowFirst, int rowLast, double height)
 */
 double Document::rowHeight(int row)
 {
-   if (Worksheet *sheet = currentWorksheet())
-      return sheet->rowHeight(row);
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->rowHeight(row);
     return 0.0;
 }
 
@@ -716,8 +716,8 @@ double Document::rowHeight(int row)
 Format Document::rowFormat(int row)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->rowFormat(row);
-     return Format();
+        return sheet->rowFormat(row);
+    return Format();
 }
 
 /*!
@@ -726,8 +726,8 @@ Format Document::rowFormat(int row)
 bool Document::isRowHidden(int row)
 {
     if (Worksheet *sheet = currentWorksheet())
-       return sheet->isRowHidden(row);
-     return false;
+        return sheet->isRowHidden(row);
+    return false;
 }
 
 /*!
@@ -813,6 +813,47 @@ bool Document::defineName(const QString &name, const QString &formula, const QSt
     Q_D(Document);
 
     return d->workbook->defineName(name, formula, comment, scope);
+}
+
+/*!
+ * \brief Create a print area on sheet \a sheetName as cell range \a range
+ *
+ * \param sheetName Sheet name to set print ares
+ * \param range Cell range for print area
+ */
+bool Document::setPrintArea(const CellRange& range, const QString& sheetName)
+{
+    Q_D(Document);
+
+    QString sheet = sheetName.isEmpty()
+            ? currentWorksheet()->sheetName()
+            : sheetName;
+
+    return d->workbook->defineName(QStringLiteral("_xlnm.Print_Area"),
+                                   QString::fromUtf8("%1!%2")
+                                   .arg(sheet)
+                                   .arg(range.toString(true, true)),
+                                   QString(),
+                                   sheet);
+}
+
+bool Document::setPageSetup(double percent,
+                            QPageSize::PageSizeId size,
+                            QPageLayout::Orientation orientation)
+{
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->setPageSetup(percent, size, orientation);
+    return false;
+}
+
+bool Document::setPageSetup(int fitToWidth,
+                            int fitToHeight,
+                            QPageSize::PageSizeId size,
+                            QPageLayout::Orientation orientation)
+{
+    if (Worksheet *sheet = currentWorksheet())
+        return sheet->setPageSetup(fitToWidth, fitToHeight, size, orientation);
+    return false;
 }
 
 /*!

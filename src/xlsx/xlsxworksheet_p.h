@@ -46,6 +46,8 @@
 #include <QImage>
 #include <QSharedPointer>
 #include <QRegularExpression>
+#include <QPageLayout>
+#include <QPageSize>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
@@ -142,7 +144,7 @@ struct XlsxColumnInfo
     int firstColumn;
     int lastColumn;
     bool customWidth;
-    double width;    
+    double width;
     Format format;
     bool hidden;
     int outlineLevel;
@@ -153,6 +155,32 @@ class XLSX_AUTOTEST_EXPORT WorksheetPrivate : public AbstractSheetPrivate
 {
     Q_DECLARE_PUBLIC(Worksheet)
 public:
+    struct PageSetup
+    {
+        double scale;
+        int fitToWidth;
+        int fitToHeight;
+        QPageSize::PageSizeId pageSize;
+        QPageLayout::Orientation orientation;
+
+        PageSetup();
+        PageSetup(double _scale,
+                  QPageSize::PageSizeId _pageSize,
+                  QPageLayout::Orientation _orientation);
+        PageSetup(int _fitToWidth,
+                  int _fitToHeight,
+                  QPageSize::PageSizeId _pageSize,
+                  QPageLayout::Orientation _orientation);
+        bool isScale() const;
+        bool isFitToPage() const;
+        bool isValid() const;
+
+        int xlsxPageSize() const;
+        static QPageSize::PageSizeId fromXlsxPageSize(int xlsxPageSize);
+        QString orientationString() const;
+        static QPageLayout::Orientation fromOrientationString(const QString& str);
+    };
+
     WorksheetPrivate(Worksheet *p, Worksheet::CreateFlag flag);
     ~WorksheetPrivate();
     int checkDimensions(int row, int col, bool ignore_row=false, bool ignore_col=false);
@@ -178,6 +206,8 @@ public:
     void loadXmlSheetFormatProps(QXmlStreamReader &reader);
     void loadXmlSheetViews(QXmlStreamReader &reader);
     void loadXmlHyperlinks(QXmlStreamReader &reader);
+    void loadXmlSheetPr(QXmlStreamReader &reader);
+    void loadXmlPageSetup(QXmlStreamReader &reader);
 
     QList<QSharedPointer<XlsxRowInfo> > getRowInfoList(int rowFirst, int rowLast);
     QList <QSharedPointer<XlsxColumnInfo> > getColumnInfoList(int colFirst, int colLast);
@@ -223,6 +253,8 @@ public:
     bool showRuler;
     bool showOutlineSymbols;
     bool showWhiteSpace;
+
+    PageSetup pageSetup;
 
     QRegularExpression urlPattern;
 private:
