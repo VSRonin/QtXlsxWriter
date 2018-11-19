@@ -151,6 +151,9 @@ public:
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
 
+    void addRowBreak(int row);
+    void addColBreak(int col);
+
     ~Worksheet();
 
 

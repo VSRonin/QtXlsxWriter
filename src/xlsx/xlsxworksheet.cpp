@@ -416,6 +416,23 @@ void Worksheet::setWhiteSpaceVisible(bool visible)
     Q_D(Worksheet);
     d->showWhiteSpace = visible;
 }
+/*!
+ * Add manual page break above the specified row \a row (1-indexed)
+ */
+void Worksheet::addRowBreak(int row)
+{
+    Q_D(Worksheet);
+    d->rowBreaks.insert(row);
+}
+
+/*!
+ * Add manual page break left of the specified column \a col (1-indexed)
+ */
+void Worksheet::addColBreak(int col)
+{
+    Q_D(Worksheet);
+    d->colBreaks.insert(col);
+}
 
 /*!
  * Write \a value to cell (\a row, \a column) with the \a format.
@@ -1252,6 +1269,36 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         else if (d->pageSetup.isFitToPage()) writer.writeAttribute(QStringLiteral("fitToHeight"), QString::number(d->pageSetup.fitToHeight));
         writer.writeAttribute(QStringLiteral("orientation"), d->pageSetup.orientationString());
         writer.writeEndElement();//pageSetup
+    }
+
+    if (!d->rowBreaks.isEmpty())
+    {
+        writer.writeStartElement(QStringLiteral("rowBreaks"));
+        writer.writeAttribute(QStringLiteral("count"), QString::number(d->rowBreaks.count()));
+        writer.writeAttribute(QStringLiteral("manualBreakCount"), QString::number(d->rowBreaks.count()));
+        foreach (const int r, d->rowBreaks)
+        {
+            writer.writeEmptyElement(QStringLiteral("brk"));
+            writer.writeAttribute(QStringLiteral("id"), QString::number(r - 1));
+            writer.writeAttribute(QStringLiteral("max"), QString::number(16383));
+            writer.writeAttribute(QStringLiteral("man"), QString::number(1));
+        }
+        writer.writeEndElement();//rowBreaks
+    }
+
+    if (!d->colBreaks.isEmpty())
+    {
+        writer.writeStartElement(QStringLiteral("colBreaks"));
+        writer.writeAttribute(QStringLiteral("count"), QString::number(d->rowBreaks.count()));
+        writer.writeAttribute(QStringLiteral("manualBreakCount"), QString::number(d->rowBreaks.count()));
+        foreach (const int c, d->colBreaks)
+        {
+            writer.writeEmptyElement(QStringLiteral("brk"));
+            writer.writeAttribute(QStringLiteral("id"), QString::number(c - 1));
+            writer.writeAttribute(QStringLiteral("max"), QString::number(1048575));
+            writer.writeAttribute(QStringLiteral("man"), QString::number(1));
+        }
+        writer.writeEndElement();//colBreaks
     }
 
     d->saveXmlDrawings(writer);
