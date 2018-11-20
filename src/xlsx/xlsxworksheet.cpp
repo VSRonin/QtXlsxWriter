@@ -56,6 +56,7 @@
 #include <QDir>
 
 #include <math.h>
+#include <algorithm>
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -1276,7 +1277,9 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeStartElement(QStringLiteral("rowBreaks"));
         writer.writeAttribute(QStringLiteral("count"), QString::number(d->rowBreaks.count()));
         writer.writeAttribute(QStringLiteral("manualBreakCount"), QString::number(d->rowBreaks.count()));
-        foreach (const int r, d->rowBreaks)
+		QList<int> sortedBreaks = d->rowBreaks.toList();
+		std::sort(sortedBreaks.begin(), sortedBreaks.end());
+		foreach (const int r, sortedBreaks)
         {
             writer.writeEmptyElement(QStringLiteral("brk"));
             writer.writeAttribute(QStringLiteral("id"), QString::number(r - 1));
@@ -1291,7 +1294,9 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
         writer.writeStartElement(QStringLiteral("colBreaks"));
         writer.writeAttribute(QStringLiteral("count"), QString::number(d->rowBreaks.count()));
         writer.writeAttribute(QStringLiteral("manualBreakCount"), QString::number(d->rowBreaks.count()));
-        foreach (const int c, d->colBreaks)
+		QList<int> sortedBreaks = d->colBreaks.toList();
+		std::sort(sortedBreaks.begin(), sortedBreaks.end());
+		foreach (const int c, sortedBreaks)
         {
             writer.writeEmptyElement(QStringLiteral("brk"));
             writer.writeAttribute(QStringLiteral("id"), QString::number(c - 1));
@@ -2454,8 +2459,8 @@ SharedStrings *WorksheetPrivate::sharedStrings() const
 
 WorksheetPrivate::PageSetup::PageSetup():
     scale(0),
-    fitToWidth(0),
-    fitToHeight(0),
+	fitToWidth(-1),
+	fitToHeight(-1),
     pageSize(QPageSize::A4),
     orientation(QPageLayout::Portrait)
 {
@@ -2465,8 +2470,8 @@ WorksheetPrivate::PageSetup::PageSetup(double _scale,
                                        QPageSize::PageSizeId _pageSize,
                                        QPageLayout::Orientation _orientation) :
     scale(_scale),
-    fitToWidth(0),
-    fitToHeight(0),
+	fitToWidth(-1),
+	fitToHeight(-1),
     pageSize(_pageSize),
     orientation(_orientation)
 {
@@ -2491,7 +2496,7 @@ bool WorksheetPrivate::PageSetup::isScale() const
 
 bool WorksheetPrivate::PageSetup::isFitToPage() const
 {
-    return (fitToWidth > 0) && (fitToHeight > 0);
+	return (fitToWidth >= 0) && (fitToHeight >= 0);
 }
 
 bool WorksheetPrivate::PageSetup::isValid() const
