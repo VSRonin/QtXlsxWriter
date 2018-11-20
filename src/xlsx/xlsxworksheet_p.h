@@ -234,6 +234,8 @@ public:
     mutable QMap<int, QString> row_spans;
     QMap<int, double> row_sizes;
     QMap<int, double> col_sizes;
+    QSet<int> rowBreaks;
+    QSet<int> colBreaks;
 
     int outline_row_level;
     int outline_col_level;
