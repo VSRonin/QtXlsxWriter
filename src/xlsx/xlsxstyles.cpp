@@ -589,6 +589,8 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
             writer.writeAttribute(QStringLiteral("applyBorder"), QStringLiteral("1"));
         if (format.hasAlignmentData())
             writer.writeAttribute(QStringLiteral("applyAlignment"), QStringLiteral("1"));
+        if (format.hasProtectionData())
+            writer.writeAttribute(QStringLiteral("applyProtection"), QStringLiteral("1"));
 
         if (format.hasAlignmentData()) {
             writer.writeEmptyElement(QStringLiteral("alignment"));
@@ -646,6 +648,13 @@ void Styles::writeCellXfs(QXmlStreamWriter &writer) const
                 writer.writeAttribute(QStringLiteral("shrinkToFit"), QStringLiteral("1"));
             if (format.hasProperty(FormatPrivate::P_Alignment_Rotation))
                 writer.writeAttribute(QStringLiteral("textRotation"), QString::number(format.rotation()));
+        }
+
+        if (format.hasProtectionData()) {
+            writer.writeStartElement(QStringLiteral("protection"));
+            writer.writeAttribute(QStringLiteral("locked"), format.locked() ? QStringLiteral("1") : QStringLiteral("0"));
+            writer.writeAttribute(QStringLiteral("hidden"), format.hidden() ? QStringLiteral("1") : QStringLiteral("0"));
+            writer.writeEndElement();//protection
         }
 
         writer.writeEndElement();//xf
