@@ -31,6 +31,8 @@
 #include "xlsxworksheet.h"
 #include <QObject>
 #include <QVariant>
+#include <QPageLayout>
+#include <QPageSize>
 class QIODevice;
 class QImage;
 
@@ -98,6 +100,14 @@ public:
     Cell *cellAt(int row, int col) const;
 
     bool defineName(const QString &name, const QString &formula, const QString &comment=QString(), const QString &scope=QString());
+    bool setPrintArea(const CellRange &range, const QString &sheetName=QString());
+    bool setPageSetup(double percent,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
+    bool setPageSetup(int fitToWidth,
+                      int fitToHeight,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
 
     CellRange dimension() const;
 

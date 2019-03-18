@@ -34,6 +34,9 @@
 #include <QVariant>
 #include <QPointF>
 #include <QSharedPointer>
+#include <QPageSize>
+#include <QPageLayout>
+
 class QIODevice;
 class QDateTime;
 class QUrl;
@@ -119,6 +122,14 @@ public:
     bool groupColumns(const CellRange &range, bool collapsed = true);
     CellRange dimension() const;
 
+    bool setPageSetup(double percent,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
+    bool setPageSetup(int fitToWidth,
+                      int fitToHeight,
+                      QPageSize::PageSizeId size,
+                      QPageLayout::Orientation orientation);
+
     bool isWindowProtected() const;
     void setWindowProtected(bool protect);
     bool isFormulasVisible() const;
@@ -139,6 +150,9 @@ public:
     void setOutlineSymbolsVisible(bool visible);
     bool isWhiteSpaceVisible() const;
     void setWhiteSpaceVisible(bool visible);
+
+    void addRowBreak(int row);
+    void addColBreak(int col);
 
     ~Worksheet();
 

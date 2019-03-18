@@ -228,13 +228,23 @@ void SharedStrings::saveToXmlFile(QIODevice *device) const
         writer.writeStartElement(QStringLiteral("si"));
         if (string.isRichString()) {
             //Rich text string
+            Format lastNotEmptyFragmentFormat;
             for (int i=0; i<string.fragmentCount(); ++i) {
                 writer.writeStartElement(QStringLiteral("r"));
-                if (string.fragmentFormat(i).hasFontData()) {
+                Format fragmentFormat = string.fragmentFormat(i);
+                if (string.fragmentText(i).trimmed().isEmpty() && !fragmentFormat.hasFontData()) {
+                    // Fragment contains only spaces and doesn't have font data.
+                    // Excel will set default font for this fragment.
+                    // It's better to set font of last fragment, which contains some text.
+                    fragmentFormat = lastNotEmptyFragmentFormat;
+                }
+                if (fragmentFormat.hasFontData()) {
                     writer.writeStartElement(QStringLiteral("rPr"));
-                    writeRichStringPart_rPr(writer, string.fragmentFormat(i));
+                    writeRichStringPart_rPr(writer, fragmentFormat);
                     writer.writeEndElement();// rPr
                 }
+                lastNotEmptyFragmentFormat = fragmentFormat;
+
                 writer.writeStartElement(QStringLiteral("t"));
                 if (isSpaceReserveNeeded(string.fragmentText(i)))
                     writer.writeAttribute(QStringLiteral("xml:space"), QStringLiteral("preserve"));
