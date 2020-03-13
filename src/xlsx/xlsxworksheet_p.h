@@ -48,6 +48,7 @@
 #include <QRegularExpression>
 #include <QPageLayout>
 #include <QPageSize>
+#include <QSet>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
