@@ -131,7 +131,12 @@ QColor XlsxColor::fromARGBString(const QString &c)
 
 QString XlsxColor::toARGBString(const QColor &c)
 {
-    return QString::asprintf("%02X%02X%02X%02X", c.alpha(), c.red(), c.green(), c.blue());
+    return QString("%1%2%3%4")
+        .arg(c.alpha(), 2, 16, QLatin1Char('0'))
+        .arg(c.red(), 2, 16,QLatin1Char('0'))
+        .arg(c.green(), 2, 16, QLatin1Char('0'))
+        .arg(c.blue(), 2, 16, QLatin1Char('0'))
+        .toUpper();
 }
 
 #if !defined(QT_NO_DATASTREAM)
