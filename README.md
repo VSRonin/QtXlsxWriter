@@ -1,3 +1,4 @@
+> *Read this in other languages: [English](README.md), :kr: [한국어](README.ko.md)*
 Documentation: http://qtxlsx.debao.me
 
 QtXlsx is a library that can read and write Excel files. It doesn't require Microsoft Excel and can be used in any platform that Qt5 supported.
