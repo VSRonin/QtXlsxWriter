@@ -186,6 +186,18 @@ bool Workbook::defineName(const QString &name, const QString &formula, const QSt
     return true;
 }
 
+QString Workbook::getFormulaByDefineName(const QString &definedName) const
+{
+    Q_D(const Workbook);
+
+    for (int i = 0; i < d->definedNamesList.size(); i++){
+        if (d->definedNamesList[i].name == definedName)
+            return (d->definedNamesList[i].formula);
+    }
+
+    return QString();
+}
+
 AbstractSheet *Workbook::addSheet(const QString &name, AbstractSheet::SheetType type)
 {
     Q_D(Workbook);
