@@ -26,7 +26,7 @@
 #ifndef QXLSX_XLSXABSTRACTOOXMLFILE_H
 #define QXLSX_XLSXABSTRACTOOXMLFILE_H
 
-#include "xlsxglobal.h"
+#include "QtXlsx/xlsxglobal.h"
 
 class QIODevice;
 class QByteArray;

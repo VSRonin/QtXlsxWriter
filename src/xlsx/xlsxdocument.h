@@ -26,11 +26,13 @@
 #ifndef QXLSX_XLSXDOCUMENT_H
 #define QXLSX_XLSXDOCUMENT_H
 
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
-#include "xlsxworksheet.h"
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxformat.h"
+#include "QtXlsx/xlsxworksheet.h"
+
 #include <QObject>
 #include <QVariant>
+
 class QIODevice;
 class QImage;
 

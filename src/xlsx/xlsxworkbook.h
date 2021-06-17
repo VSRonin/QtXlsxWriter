@@ -25,9 +25,10 @@
 #ifndef XLSXWORKBOOK_H
 #define XLSXWORKBOOK_H
 
-#include "xlsxglobal.h"
-#include "xlsxabstractooxmlfile.h"
-#include "xlsxabstractsheet.h"
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxabstractooxmlfile.h"
+#include "QtXlsx/xlsxabstractsheet.h"
+
 #include <QList>
 #include <QImage>
 #include <QSharedPointer>

@@ -25,7 +25,8 @@
 #ifndef XLSXCHARTSHEET_H
 #define XLSXCHARTSHEET_H
 
-#include "xlsxabstractsheet.h"
+#include "QtXlsx/xlsxabstractsheet.h"
+
 #include <QStringList>
 #include <QSharedPointer>
 

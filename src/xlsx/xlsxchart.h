@@ -26,7 +26,7 @@
 #ifndef QXLSX_CHART_H
 #define QXLSX_CHART_H
 
-#include "xlsxabstractooxmlfile.h"
+#include "QtXlsx/xlsxabstractooxmlfile.h"
 
 #include <QSharedPointer>
 

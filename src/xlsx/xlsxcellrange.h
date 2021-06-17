@@ -24,8 +24,9 @@
 ****************************************************************************/
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
-#include "xlsxglobal.h"
-#include "xlsxcellreference.h"
+
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxcellreference.h"
 
 QT_BEGIN_NAMESPACE_XLSX
 

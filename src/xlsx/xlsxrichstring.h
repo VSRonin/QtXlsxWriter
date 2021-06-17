@@ -25,8 +25,9 @@
 #ifndef XLSXRICHSTRING_H
 #define XLSXRICHSTRING_H
 
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxformat.h"
+
 #include <QVariant>
 #include <QStringList>
 #include <QSharedDataPointer>

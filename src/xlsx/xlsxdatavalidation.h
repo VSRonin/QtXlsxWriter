@@ -25,7 +25,8 @@
 #ifndef QXLSX_XLSXDATAVALIDATION_H
 #define QXLSX_XLSXDATAVALIDATION_H
 
-#include "xlsxglobal.h"
+#include "QtXlsx/xlsxglobal.h"
+
 #include <QSharedDataPointer>
 #include <QString>
 #include <QList>

@@ -25,8 +25,9 @@
 #ifndef QXLSX_XLSXCELL_H
 #define QXLSX_XLSXCELL_H
 
-#include "xlsxglobal.h"
-#include "xlsxformat.h"
+#include "QtXlsx/xlsxglobal.h"
+#include "QtXlsx/xlsxformat.h"
+
 #include <QVariant>
 
 QT_BEGIN_NAMESPACE_XLSX

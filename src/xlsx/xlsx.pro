@@ -1,11 +1,9 @@
+include($$PWD/qtxlsx.pri)
+
+load(qt_build_config)
 TARGET = QtXlsx
-
-QMAKE_DOCS = $$PWD/doc/qtxlsx.qdocconf
-
 load(qt_module)
-
-CONFIG += build_xlsx_lib
-include(qtxlsx.pri)
+QMAKE_DOCS = $$PWD/doc/qtxlsx.qdocconf
 
 #Define this macro if you want to run tests, so more AIPs will get exported.
 #DEFINES += XLSX_TEST

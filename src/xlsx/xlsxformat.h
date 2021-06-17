@@ -25,7 +25,8 @@
 #ifndef QXLSX_FORMAT_H
 #define QXLSX_FORMAT_H
 
-#include "xlsxglobal.h"
+#include "QtXlsx/xlsxglobal.h"
+
 #include <QFont>
 #include <QColor>
 #include <QByteArray>
