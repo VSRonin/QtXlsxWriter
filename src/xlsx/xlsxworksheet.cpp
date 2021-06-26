@@ -1362,6 +1362,8 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     d->saveXmlHyperlinks(writer);
     d->saveXmlDrawings(writer);
 
+    //加入此段之后可能导致xlsx格式的Excel表格,在用insertImage 插入图片之后,用Office2016/2019打不开,WPS却能打开,暂时屏蔽,有空提交问题或者解决 by lizulin 20200217
+#if 0
     writer.writeStartElement(QStringLiteral("pageMargins"));
     writer.writeAttribute(QStringLiteral("left"), QString::number(d->leftPageMargin, 'g', 15));
     writer.writeAttribute(QStringLiteral("right"), QString::number(d->rightPageMargin, 'g', 15));
@@ -1370,6 +1372,7 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("header"), QString::number(d->headerPageMargin, 'g', 15));
     writer.writeAttribute(QStringLiteral("footer"), QString::number(d->footerPageMargin, 'g', 15));
     writer.writeEndElement();//pagemargins
+#endif
 
     writer.writeEndElement();//worksheet
     writer.writeEndDocument();
